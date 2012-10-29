@@ -1,8 +1,13 @@
 # per-user notifications:
 test_run.logger.info("Sending per-user notifications")
 
+require 'debugger'
+debugger;1
+
+
 require 'pathname'
 require File.expand_path("../lib/post_process/caller", Pathname.new(__FILE__).realpath)
+
 
 PostProcess::Caller.new(root, test_run).run
 
