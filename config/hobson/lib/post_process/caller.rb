@@ -22,7 +22,8 @@ module PostProcess
       ) do |i, o, e, t|
         output = o.read.chomp
         debugger; 1
-        @test_run.logger.info output
+        @test_run.logger.info "Stdout: #{output}"
+        @test_run.logger.info "Stderr: #{e.read.chomp}"
       end
 
       debugger
@@ -34,7 +35,7 @@ module PostProcess
     end
 
     def command
-      cmd = "bundle exec ruby config/hobson/script/post_process_with_local_bundle.rb"
+      cmd = "bundle exec ruby #{root.join("config/hobson/script/post_process_with_local_bundle.rb").to_s}"
       cmd += " #{@test_run.id} #{to_at_mention(@test_run.requestor)}"
       cmd
     end
