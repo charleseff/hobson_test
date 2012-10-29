@@ -15,18 +15,13 @@ module PostProcess
 
       return if @test_run.requested_by_ci?
 
-      debugger
       Open3.popen3(
         { "BUNDLE_GEMFILE" => (@root.join 'Gemfile').to_s },
         command
-      ) do |i, o, e, t|
-        output = o.read.chomp
-        debugger; 1
-        @test_run.logger.info "Stdout: #{output}"
-        @test_run.logger.info "Stderr: #{e.read.chomp}"
+      ) do |i, output, error, t|
+        @test_run.logger.info "Stdout: #{output.read.chomp}"
+        @test_run.logger.info "Stderr: #{error.read.chomp}"
       end
-
-      debugger
     end
 
     private
