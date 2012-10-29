@@ -3,6 +3,8 @@ require 'open3'
 # just enough to call the post_process with local bundle
 module PostProcess
   class Caller
+    attr_reader :root, :test_run
+    
     def initialize(root, test_run)
       @root     = root
       @test_run = test_run
@@ -17,7 +19,7 @@ module PostProcess
         { "BUNDLE_GEMFILE" => (@root.join 'Gemfile').to_s },
         command
       ) do |i, o, e, t|
-        test_run.logger.info o.read.chomp
+        @test_run.logger.info o.read.chomp
       end
     end
 
