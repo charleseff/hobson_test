@@ -2,16 +2,26 @@ require 'hipchat-api'
 
 module PostProcess
   class Notifier
-    def initialize(test_run_id, hipchat_mention_name)
+    def initialize(test_run_id, hipchat_mention_name, test_passed)
       @test_run_id          = test_run_id
       @hipchat_mention_name = hipchat_mention_name
+      @test_passed          = test_passed
     end
 
     def run
-      hipchat.rooms_message(bot_room_id, 'Hobson', "@#{hipchat_mention_name}, your Hobson run is finished.  Go to #{test_run_url}", 1, 'yellow', 'text')
+      hipchat.rooms_message(bot_room_id, 'Hobson', message, 1, message_color, 'text')
     end
 
     private
+
+    def message_color
+      @test_passed ? 'green' : 'red'
+    end
+
+    def message
+      "@#{hipchat_mention_name}, your Hobson run #{@test_passed ? 'passed' : "didn't pass"}.  Go to #{test_run_url}"
+    end
+
     def hipchat
       @hipchat ||= HipChat::API.new('e90fc81dc47cd1302f8870e94eafa4')
     end

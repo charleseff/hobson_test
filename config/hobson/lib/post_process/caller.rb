@@ -36,7 +36,7 @@ module PostProcess
 
     def command
       cmd = "bundle exec ruby #{root.join("config/hobson/script/post_process_with_local_bundle.rb").to_s}"
-      cmd += " #{@test_run.id} #{to_at_mention(@test_run.requestor)}"
+      cmd += " #{@test_run.id} #{to_at_mention(@test_run.requestor)} #{@test_run.passed?.to_s}"
       cmd
     end
   end
