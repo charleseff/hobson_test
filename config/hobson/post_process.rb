@@ -2,8 +2,7 @@
 test_run.logger.info("Sending per-user notifications")
 
 require 'debugger'
-debugger;1
-
+debugger
 
 require 'pathname'
 require File.expand_path("../lib/post_process/caller", Pathname.new(__FILE__).realpath)

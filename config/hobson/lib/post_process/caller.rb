@@ -17,7 +17,7 @@ module PostProcess
         { "BUNDLE_GEMFILE" => (@root.join 'Gemfile').to_s },
         command
       ) do |i, o, e, t|
-        o.read.chomp
+        test_run.logger.info o.read.chomp
       end
     end
 
